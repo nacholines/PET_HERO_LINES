@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "firstName": "Ignacio",
+        "lastName": "Lines",
+        "dni": "41854050",
+        "birthDate": "1999-05-30",
+        "gender": "M",
+        "phone": "2235975438",
+        "email": "nacho.lines300599@gmail.com",
+        "username": "nacholin",
+        "password": "1111"
+    },
+    {
+        "id": 2,
+        "firstName": "Solana",
+        "lastName": "Munt",
+        "dni": "43855532",
+        "birthDate": "2001-12-11",
+        "gender": "F",
+        "phone": "2235510863",
+        "email": "munttmc@gmail.com",
+        "username": "solmunt",
+        "password": "1111"
+    }
+]

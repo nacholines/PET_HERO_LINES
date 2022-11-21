@@ -1,0 +1,15 @@
+<?php
+    
+    namespace Config;
+
+    define("ROOT", dirname(__DIR__) . "/");
+    define("FRONT_ROOT", "/tpfinalFinal/");
+    define("VIEWS_PATH", "Views/");
+    define("CSS_PATH",  FRONT_ROOT.VIEWS_PATH . "css/");
+    define("IMG_PATH", FRONT_ROOT.VIEWS_PATH . "pet-img/");
+    define("JS_PATH",  FRONT_ROOT.VIEWS_PATH . "js/");
+    define("DB_HOST", "localhost");
+    define("DB_NAME", "Pet_hero");
+    define("DB_USER", "root");
+    define("DB_PASS", "colores");
+?>
