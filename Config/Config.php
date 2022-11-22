@@ -3,7 +3,7 @@
     namespace Config;
 
     define("ROOT", dirname(__DIR__) . "/");
-    define("FRONT_ROOT", "/tpfinalFinal/");
+    define("FRONT_ROOT", "/pet_hero/");
     define("VIEWS_PATH", "Views/");
     define("CSS_PATH",  FRONT_ROOT.VIEWS_PATH . "css/");
     define("IMG_PATH", FRONT_ROOT.VIEWS_PATH . "pet-img/");

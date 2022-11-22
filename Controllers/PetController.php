@@ -30,10 +30,8 @@ class PetController{
     }
     
     public function Add($_pet){
-        $petDAO = new PetDAO();
-        
         try{
-            $registeredPet = $petDAO->create($_pet);
+            $this->petDAO->create($_pet);
         }catch(Exception $exc){
             throw $exc;
         }
@@ -62,12 +60,12 @@ class PetController{
         require_once(VIEWS_PATH."register-pet-view.php");
     }
 
+    //TODO move to OwnerController
     public function ShowPetsView($message = "", $type = ""){
         $pets = $this-> petDAO-> GetPetsByPersonId($_SESSION["loggedUser"]-> getId());
         foreach ($pets as $pet => $value) {
             $this-> FillPetData($value);
         }
-        //echo "<pre>"; var_dump($pets); echo "</pre>"; die();
         require_once(VIEWS_PATH."list-pets-view.php");
     }
 

@@ -25,6 +25,7 @@ class Pet{
         return $this;
     }
 
+    //TODO replace the id with the actual person instance 
     public function getIdPerson(){
         return $this->idPerson;
     }

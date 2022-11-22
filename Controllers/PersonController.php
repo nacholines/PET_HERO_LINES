@@ -13,30 +13,19 @@ class PersonController{
     }
 
     public function Register($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType){
-        if(!$this->personDAO->getByUsername($username)){
-            $this->RegisterPerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType);
-            $this->ShowMainView("Se registró el usuario exitosamente.");
+        if(!$this->personDAO->GetByDni($dni) ){
+            if(!$this->personDAO->GetByUsername($username)){
+                $this->RegisterPerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType);
+                if(strcmp($userType, "Guardian") == 0){
+                    header("location:" . FRONT_ROOT . "guardian/ShowRegisterView");
+                    $this->ShowMainView("Se registró el usuario exitosamente.");
+                }
+            }else{
+                $this->ShowRegisterView("Un usuario con ese dni ya se encuentra registrado.");
+            }
         }else{
             $this->ShowRegisterView("El nombre de usuario ya está en uso.");
         }
-    }
-
-    //TODO delete this function
-    public function Register1(){
-        $this->RegisterPerson(
-            "Fede", 
-            "Skl", 
-            "41000027", 
-            "1998-03-24", 
-            "M", 
-            "111", 
-            "federico@gmail.com", 
-            "fedefefede", 
-            "1111", 
-            "Owner"
-        );
-        $this->ShowMainView("Se registró el usuario exitosamente.");
-        
     }
 
     public function Add($_person){
@@ -49,8 +38,12 @@ class PersonController{
             //TODO finish DNI verification
             $registeredPerson = $personDAO->GetByDni($_person->getDni());
             $_SESSION["loggedUser"]= $registeredPerson;
+            if(strcmp($_person->getUserType(), "Guardian")){
+                echo "es un guardian!";
+                require_once(FRONT_ROOT . "Guardian/ShowRegisterView");
+                require_once(VIEWS_PATH."main.php");
+            }
             //echo $this->ToString($registeredPerson);
-            require_once(VIEWS_PATH."main.php");
 
         }catch(Exception $exc){
             throw $exc;

@@ -43,17 +43,60 @@
         }
 
         public function GetByDni($dni){
- 
-            $sql = "SELECT * FROM people where dni = :dni";
-            $parameters['dni'] = $dni;
-            $this->GetData();
-
-            $array = array_filter($this->people, function($person) use($dni){
-                return $person->getDni() == $dni;
-            });
-
-            $array = array_values($array);
-            return (count($array) > 0) ? $array[0] : null;
+            try{
+                $query = "SELECT * FROM people where dni = :dni";
+                $parameters['dni'] = $dni;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query, $parameters);
+                if(!count($resultSet) == 0){
+                    $value = $resultSet[0];
+                    $person = new Person();
+                    $person->setId($value["Id"]);
+                    $person->setFirstName($value["firstName"]);
+                    $person->setLastName($value["lastName"]);
+                    $person->setDni($value["dni"]);
+                    $person->setBirthDate($value["birthDate"]);
+                    $person->setGender($value["gender"]);
+                    $person->setPhone($value["phone"]);
+                    $person->setEmail($value["email"]);
+                    $person->setUsername($value["username"]);
+                    $person->setPassword($value["password"]);
+                    $person->setUserType($value["userType"]);
+                    return $person;
+                }
+            }catch(Exception $exc){
+                throw $exc;
+            }
+            return null;
+        }
+        
+        
+        public function GetByUsername($username){
+            try{
+                $query = "SELECT * FROM people where username = :username";
+                $parameters['username'] = $username;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query, $parameters);
+                if(!count($resultSet) == 0){
+                    $value = $resultSet[0];
+                    $person = new Person();
+                    $person->setId($value["Id"]);
+                    $person->setFirstName($value["firstName"]);
+                    $person->setLastName($value["lastName"]);
+                    $person->setDni($value["dni"]);
+                    $person->setBirthDate($value["birthDate"]);
+                    $person->setGender($value["gender"]);
+                    $person->setPhone($value["phone"]);
+                    $person->setEmail($value["email"]);
+                    $person->setUsername($value["username"]);
+                    $person->setPassword($value["password"]);
+                    $person->setUserType($value["userType"]);
+                    return $person;
+                }
+            }catch(Exception $exc){
+                throw $exc;
+            }
+            return null;
         }
 
         private function GetData(){

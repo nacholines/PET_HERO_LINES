@@ -3,52 +3,53 @@
 namespace Models;
 
 class Guardian extends Person{
-    private static $numberGuardian = 0;
-    private $idGuardian;
-    private $listaDisponibilidad;
-    private $precio;
-    private $tipoMascota;
+    private $IdPerson;
+    private $rate;
+    private $acceptedSize;
+    private $avilabilityStartDate;
+    private $availabilityEndDate;
 
-    public function __constructor($firstName, $lastName, $bitrhDate, $dni, $gender, $phone, $email, $password, $precio, $tipoMascota){
-        super($firstName, $lastName, $bitrhDate, $dni, $gender, $phone, $email, $password);
-
-        $this->idGuardian = $this::$numberGuardian+1;
-
-        $this->listaDisponibilidad = array();
-        $this->precio=$precio;
-        $this->tipoMascota=$tipoMascota;
-
-        MyClass::$numberGuardian++;
+    public function __constructor(){
     }
 
-    public function getListaDisponibilidad(){
-        return $this->listaDisponibilidad;
+    //TODO replace the id with the actual person instance 
+    public function getIdPerson(){
+        return $this->IdPerson;
+    }
+    public function setIdPerson($IdPerson){
+        $this->IdPerson = $IdPerson;
+        return $this;
     }
 
-    public function setListaDisponibilidad($disponibilidad){
-        $this->listaDisponibilidad = $disponibilidad;
+    public function getRate(){
+        return $this->rate;
+    }
+    public function setRate($rate){
+        $this->rate = $rate;
     }
 
-    public function addDisponibilidad($dateDisponible){
-        array_push($this->listaDisponibilidad, $dateDisponible);
+    public function getAcceptedSize(){
+        return $this->acceptedSize;
+    }
+    public function setAcceptedSize($acceptedSize){
+        $this->acceptedSize = $acceptedSize;
     }
 
-    public function getPrecio(){
-        return $this->precio;
+    public function getAvailabilityStartDate(){
+        return $this->avilabilityStartDate;
+    }
+    public function setAvailabilityStartDate($avilabilityStartDate){
+        $this->avilabilityStartDate = $avilabilityStartDate;
+        return $this;
     }
 
-    public function setPrecio($precio){
-        $this->precio = $precio;
+    public function getAvailabilityEndDate(){
+        return $this->availabilityEndDate;
     }
-
-    public function getTipoMascota(){
-        return $this->tipo;
+    public function setAvailabilityEndDate($availabilityEndDate){
+        $this->availabilityEndDate = $availabilityEndDate;
+        return $this;
     }
-
-    public function setTipoMascota($tipo){
-        $this->tipo = $tipo;
-    }
-
 
 }
 

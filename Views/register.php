@@ -15,8 +15,17 @@
 ?>
 
 <div class='container'>
+  <?php
+  if ($message != ""){
+  ?>
+  <div class="alert alert-warning mt-3" role="alert">
+      <?= $message; ?>
+  </div>
+  <?php
+  }
+  ?>
   <h2 class='mt-4'>Ingresar usuario:</h2>
-  <form action=<?php echo FRONT_ROOT . "person/Register" ?> method="post">
+  <form action=<?= FRONT_ROOT . "person/Register" ?> method="post">
     <div class="row">
       <div class="col-lg-4 mt-3">
         <div class="form-group">

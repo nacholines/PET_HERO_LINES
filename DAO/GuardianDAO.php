@@ -10,9 +10,28 @@ use DAO\IGuardianDAO as IGuardianDAO;
 use Models\Guardian as Guardian;
 
 class GuardianDAO implements IGuardianDAO{
+    private $connection;
+    private $tableName = "guardians";
 
     private $guardianList = array();
     private $fileName;
+
+    public function create($guardian){
+        $query = "INSERT INTO guardians (IdPerson, rate, tamanio, availabilityStartDate, availabilityEndDate) VALUES (:IdPerson, :rate, :tamanio, :availabilityStartDate, :availabilityEndDate)";
+
+        $parameters['IdPerson'] = $guardian->getIdPerson();
+        $parameters['rate'] = $guardian->getRate();
+        $parameters['tamanio'] = $guardian->getSize();
+        $parameters['availabilityStartDate'] = $guardian->getAvailabilityStartDate();
+        $parameters['availabilityEndDate'] = $guardian->getAvailabilityEndDate();
+
+        try{
+            $this->connection = Connecion::getInstance();
+            return $this->connection->Execute($query, $parameters);
+        }catch(Exception $exc){
+            throw $exc;
+        }
+    }
 
     public function __construct()
     {

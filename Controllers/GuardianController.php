@@ -13,17 +13,49 @@ use Models\Disponibilidad as Disponibilidad;
 
 class GuardianController{
     private $guardianDAO;
+    private $petDAO;
 
     function __construct(){
         $this->guardianDAO = new GuardianDAO();
+        $this->petDAO = new PetDAO();
     }
 
+    
+    public function ShowRegisterView($message = "", $type = ""){
+        $petSizes = $this-> petDAO-> GetSizesData();
+        require_once(VIEWS_PATH."register-guardian-view.php");
+    }
+
+    public function register($idPerson, $rate, $size, $availabilityStartDate, $availabilityEndDate){
+        $this->registerGuardian($idPerson, $rate, $size, $availabilityStartDate, $availabilityEndDate);
+    }
+
+    public function registerGuardian(){
+        $guardian = new Guardian();
+        $guardian = $guardian->setIdPerson($idPerson);
+        $guardian = $guardian->setRate($rate);
+        $guardian = $guardian->setAcceptedSize($size);
+        $guardian = $guardian->setAvailabilityStartDate($availabilityStartDate);
+        $guardian = $guardian->setAvailabilityEndDate($availabilityEndDate);
+
+        $this->Add();
+        
+    }
+    
+    public function Add($guardian){
+        try{
+            $guardianDAO->create($guardian);
+        }catch(Exception $exc){
+            throw $exc;
+        }
+    }
+    
+/* 
     public function guardianExist($email){
         $guardian = $this->guardianDAO->getByEmail($email);
         
         return $guardian;
     }
-
     public function showGuardianList(){
         $guardianList = $this->guardianDAO->getAll();
         require_once(VIEWS_PATH."validate-session.php");
@@ -82,7 +114,7 @@ class GuardianController{
             return $date;
         }
         return false;
-    }
+    } */
 /*
     public function isInsideIntevals($date){
         $keeper = $_SESSION["loggedUser"];
@@ -94,7 +126,7 @@ class GuardianController{
         }
         return false;
     }   
-*/  
+
     public function dateIsInInterval(Disponibilidad $interval , $date){
         
         if($date >= $interval->getStart() && $date <= $interval->getEnd() ){
@@ -102,7 +134,7 @@ class GuardianController{
         }
         return false;
     }   
-/*
+
 
     public function isInsideIntevals(TimeInterval $interval){
 
@@ -160,7 +192,7 @@ class GuardianController{
     }
 
 
-*/
+
 
     public function dateAlreadyExist (Disponibilidad $date){
 
@@ -205,12 +237,7 @@ class GuardianController{
         $this->guardianDAO->register($user);
 
     }
-
-
-
-
-
-
+    */
 }
 
 ?>

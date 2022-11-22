@@ -35,10 +35,9 @@ class HomeController{
         if($username != "" || $password != ""){
             $person = $this->personDAO->GetByUsername($username);
             if($person!=null && $person->getPassword() == $pass){
-                $_SESSION["loggedUser"]= $person; 
-                require_once(VIEWS_PATH . "main.php");
-
+                $_SESSION["loggedUser"]= $person;
                 
+                $this->ShowMainView();
                 /*/if($user instanceof Guardian){
                     $guardianC = new GuardianController();
                     $guardianC->showHomeView();
