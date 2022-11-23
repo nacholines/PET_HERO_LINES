@@ -7,15 +7,19 @@ use DateTime;
 use DateTimeZone;
 
 use Models\Guardian as Guardian;
-use DAO\GuardianDAO as GuardianDAO;
+use Models\PetSize as PetSize;
 
-use Models\Disponibilidad as Disponibilidad;
+use DAO\GuardianDAO as GuardianDAO;
+use DAO\PersonDAO as PersonDAO;
+use DAO\PetDAO as PetDAO;
 
 class GuardianController{
+    private $personDAO;
     private $guardianDAO;
     private $petDAO;
 
     function __construct(){
+        $this->personDAO = new PersonDAO();
         $this->guardianDAO = new GuardianDAO();
         $this->petDAO = new PetDAO();
     }
@@ -26,30 +30,63 @@ class GuardianController{
         require_once(VIEWS_PATH."register-guardian-view.php");
     }
 
-    public function register($idPerson, $rate, $size, $availabilityStartDate, $availabilityEndDate){
-        $this->registerGuardian($idPerson, $rate, $size, $availabilityStartDate, $availabilityEndDate);
+    public function register($rate, $acceptedSize, $availabilityStartDate, $availabilityEndDate){
+        try{
+            $this->registerGuardian($rate, $acceptedSize, $availabilityStartDate, $availabilityEndDate);
+        }catch(Exception $exc){
+            
+        }
     }
 
-    public function registerGuardian(){
-        $guardian = new Guardian();
-        $guardian = $guardian->setIdPerson($idPerson);
-        $guardian = $guardian->setRate($rate);
-        $guardian = $guardian->setAcceptedSize($size);
-        $guardian = $guardian->setAvailabilityStartDate($availabilityStartDate);
-        $guardian = $guardian->setAvailabilityEndDate($availabilityEndDate);
+    
 
-        $this->Add();
+    public function registerGuardian($rate, $acceptedSize, $availabilityStartDate, $availabilityEndDate){
+        $guardian = new Guardian();
+        $petSize = $this->petDAO->GetSizeById($acceptedSize);
+        $guardian->setRate($rate);
+        $guardian->setAcceptedSize($petSize);
+        $guardian->setAvailabilityStartDate($availabilityStartDate);
+        $guardian->setAvailabilityEndDate($availabilityEndDate);
+
+        try{
+            $this->Add($guardian);
+            $this->ShowMainView("Se registro al guardian exitosamente.");
+        }catch(Exception $exc){
+            throw $exc;
+        }
         
     }
     
     public function Add($guardian){
         try{
-            $guardianDAO->create($guardian);
+            $person = $_SESSION["processedPerson"];
+            $this->personDAO->create($person);
+            $idPerson = $this->personDAO->GetByDni($person->getDni())->getId();
+            $guardian->setFirstName($person->getFirstName());
+            $guardian->setLastName($person->getLastName());
+            $guardian->setBirthDate($person->getBirthDate());
+            $guardian->setDni($person->getDni());
+            $guardian->setGender($person->getGender());
+            $guardian->setPhone($person->getPhone());
+            $guardian->setUsername($person->getUsername());
+            $guardian->setPassword($person->getPassword());
+            $guardian->setUserType($person->getUserType());
+
+            $this->guardianDAO->create($guardian, $idPerson);
+            $_SESSION["loggedUser"] = $person;
+            
         }catch(Exception $exc){
             throw $exc;
         }
     }
+
     
+    public function ShowMainView($message = ""){
+        require_once(VIEWS_PATH."main.php");
+    }
+    
+
+    //TODO delete these commented code
 /* 
     public function guardianExist($email){
         $guardian = $this->guardianDAO->getByEmail($email);

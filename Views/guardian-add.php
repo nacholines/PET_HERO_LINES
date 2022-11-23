@@ -12,7 +12,11 @@
     <title>Carga de GUARDIAN</title>
 </head>
 
-<?php require_once("nav.php")?>
+<?php
+    //TODO delete this file
+    require_once(VIEWS_PATH."header.php");
+  Helpers\SessionValidator::ValidatePersonNav();
+?>
 
 <body>
     <div id="carga-guardian"></div>

@@ -38,13 +38,6 @@ class HomeController{
                 $_SESSION["loggedUser"]= $person;
                 
                 $this->ShowMainView();
-                /*/if($user instanceof Guardian){
-                    $guardianC = new GuardianController();
-                    $guardianC->showHomeView();
-                }else if($user instanceof Owner){
-                    $OwnerC = new OwnerController();
-                    $OwnerC->showHomeView();
-                }/*/
             }else{
                 //echo '<script>alert("Credentials dont match, try again")</script>';
                 session_destroy(); 
@@ -56,6 +49,11 @@ class HomeController{
     public function Message($message = "", $type = "")
     {
         require_once(VIEWS_PATH . "message.php");
+    }
+
+    public function logout(){
+        session_destroy();
+        $this->Index();
     }
 
 }

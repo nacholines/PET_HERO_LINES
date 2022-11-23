@@ -1,7 +1,8 @@
 <?php
-	require_once('header.php');
-    require_once('nav.php');
+  require_once(VIEWS_PATH."header.php");
+  Helpers\SessionValidator::ValidatePersonNav();
 ?>
+
 
 <div class="limiter">
 	<div class="container">

@@ -1,3 +1,7 @@
+<?php
+	require_once(VIEWS_PATH."header.php");
+    Helpers\SessionValidator::ValidatePersonNav();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +13,6 @@
     <title>Document</title>
 </head>
 <body>
-
-<?php
-  require_once("nav.php");
-?>
-
 <div class='container'>
   <?php
   if ($message != ""){

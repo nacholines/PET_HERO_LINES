@@ -15,35 +15,31 @@ class PersonController{
     public function Register($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType){
         if(!$this->personDAO->GetByDni($dni) ){
             if(!$this->personDAO->GetByUsername($username)){
-                $this->RegisterPerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType);
+                $person = $this->CreatePerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType);
                 if(strcmp($userType, "Guardian") == 0){
+                    $_SESSION["processedPerson"] = $person;
                     header("location:" . FRONT_ROOT . "guardian/ShowRegisterView");
-                    $this->ShowMainView("Se registró el usuario exitosamente.");
+                }else{
+                    try{
+                        $this->Add($person);
+                        $this->ShowMainView("Se registró el usuario exitosamente.");
+                    }catch(Exception $exc){
+                        $this->ShowRegisterView("Se produjo un error al agregar el usuario.");
+                    }
                 }
             }else{
-                $this->ShowRegisterView("Un usuario con ese dni ya se encuentra registrado.");
+                $this->ShowRegisterView("El nombre de usuario ya está en uso.");
             }
         }else{
-            $this->ShowRegisterView("El nombre de usuario ya está en uso.");
+            $this->ShowRegisterView("Un usuario con ese dni ya se encuentra registrado.");
         }
     }
 
     public function Add($_person){
-        $personDAO = new PersonDAO();
-
-        //$fileController = new FileController();
-        
         try{
-            $registeredPerson = $personDAO->create($_person);
-            //TODO finish DNI verification
-            $registeredPerson = $personDAO->GetByDni($_person->getDni());
+            $registeredPerson = $this->personDAO->create($_person);
+            $registeredPerson = $this->personDAO->GetByDni($_person->getDni());
             $_SESSION["loggedUser"]= $registeredPerson;
-            if(strcmp($_person->getUserType(), "Guardian")){
-                echo "es un guardian!";
-                require_once(FRONT_ROOT . "Guardian/ShowRegisterView");
-                require_once(VIEWS_PATH."main.php");
-            }
-            //echo $this->ToString($registeredPerson);
 
         }catch(Exception $exc){
             throw $exc;
@@ -64,7 +60,7 @@ class PersonController{
         echo $person->getUserType() . '<br>';
     }
 
-    public function RegisterPerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType){
+    public function CreatePerson($firstName, $lastName, $dni, $birthDate, $gender, $phone, $email, $username, $password, $userType){
         $person = new Person();
         $person = $person->setFirstName($firstName);
         $person = $person->setLastName($lastName);
@@ -77,7 +73,7 @@ class PersonController{
         $person = $person->setPassword($password);
         $person = $person->setUserType($userType);
         
-        $this->Add($person);
+        return $person;
     }
 
     public function ShowRegisterView($message = "", $type = ""){

@@ -36,7 +36,7 @@ class OwnerDAO implements IOwnerDAO{
     }
 
 
-    private function SaveData(){
+/*     private function SaveData(){
 
         $arrayToEncode = array();
 
@@ -83,7 +83,7 @@ class OwnerDAO implements IOwnerDAO{
 
             }
         }
-    }
+    } */
 
 }
 

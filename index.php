@@ -16,8 +16,6 @@
 	session_start();
 
     //TODO Move require_onces to each view
-	require_once(VIEWS_PATH."header.php");
-    Helpers\SessionValidator::ValidatePersonNav();
 
 	Router::Route(new Request());
 

@@ -1,4 +1,8 @@
 <?php
+  require_once(VIEWS_PATH."header.php");
+  Helpers\SessionValidator::ValidatePersonNav();
+//TODO delete this file
+
 require_once("../Config/Autoload.php");
 
 use DAO\PersonDAO as PersonDAO;

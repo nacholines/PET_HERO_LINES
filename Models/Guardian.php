@@ -3,22 +3,12 @@
 namespace Models;
 
 class Guardian extends Person{
-    private $IdPerson;
     private $rate;
     private $acceptedSize;
     private $avilabilityStartDate;
     private $availabilityEndDate;
 
     public function __constructor(){
-    }
-
-    //TODO replace the id with the actual person instance 
-    public function getIdPerson(){
-        return $this->IdPerson;
-    }
-    public function setIdPerson($IdPerson){
-        $this->IdPerson = $IdPerson;
-        return $this;
     }
 
     public function getRate(){
@@ -40,7 +30,6 @@ class Guardian extends Person{
     }
     public function setAvailabilityStartDate($avilabilityStartDate){
         $this->avilabilityStartDate = $avilabilityStartDate;
-        return $this;
     }
 
     public function getAvailabilityEndDate(){
@@ -48,7 +37,6 @@ class Guardian extends Person{
     }
     public function setAvailabilityEndDate($availabilityEndDate){
         $this->availabilityEndDate = $availabilityEndDate;
-        return $this;
     }
 
 }

@@ -3,7 +3,6 @@
 namespace Models;
  
 class Person{
-    //private static $numberUser = 0;
     private $Id;
     private $firstName;
     private $lastName;
@@ -19,10 +18,10 @@ class Person{
     public function __construct(){}    
 
     public function getId(){
-        return $this->id;
+        return $this->Id;
     }
     public function setId($id){
-        $this->id = $id;
+        $this->Id = $id;
         return $this;
     }
 

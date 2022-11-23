@@ -10,7 +10,6 @@
             <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="#">Mi Perfil</a>
             <a class="nav-item nav-link" href="<?= FRONT_ROOT ?>Pet/ShowPetsView">Mis Mascotas</a>
-            <a class="nav-item nav-link" href="<?= FRONT_ROOT ?>Owner/ShowGuardiansView">Ver Guardianes</a>
             <a class="nav-item nav-link" href="<?= FRONT_ROOT ?>home/logout">Cerrar sesion</a>
         </div>
     </div>

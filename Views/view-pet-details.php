@@ -5,7 +5,7 @@
     <div class="col-sm">
     <div class="card" style="width: 18rem;">
     <!-- TODO change hardcoded image by path in the object -->
-  <img class="card-img-top" src="<?= IMG_PATH."Leia.jpeg"/* IMG_PATH . $pet-> getPhoto(); */ ?>" alt="<?= $pet-> getName(); ?>">
+  <img class="card-img-top" src="<?= PET_IMG_PATH."Leia.jpeg"/* IMG_PATH . $pet-> getPhoto(); */ ?>" alt="<?= $pet-> getName(); ?>">
   <div class="card-body">
     <h5 class="card-title"><?= $pet-> getName(); ?></h5>
     <p class="card-text text-secondary mb-0">Comentarios:</p>

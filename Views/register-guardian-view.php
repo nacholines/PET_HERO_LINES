@@ -11,7 +11,8 @@
 <body>
 
 <?php
-  require_once("nav.php");
+	  require_once(VIEWS_PATH."header.php");
+    Helpers\SessionValidator::ValidatePersonNav();
 ?>
 
 <div class='container'>
@@ -19,7 +20,6 @@
   <form action=<?= FRONT_ROOT . "Guardian/Register" ?> method="post">
     <div class="row">
       <div class="col-lg-4 mt-3">
-        <input type="hidden" id="idPerson" name="idPerson" value="<?php echo $_SESSION["loggedUser"]-> getId(); ?>">
         <div class="form-group">
           <label for = "">Tarifa por dia</label>
           <input type="text" name ="rate" value="" class="form-control" required>
@@ -29,7 +29,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for = "">Tamaño de la mascota a cuidar: </label>
-                <select name="acceptedSize" id="size">
+                <select name="acceptedSize" id="acceptedSize">
                     <?php
                         foreach ($petSizes as $pet => $value) {
                             echo '<option value="' . $value-> getIdPetSize() .'">' . $value-> getSize() .'</option>';

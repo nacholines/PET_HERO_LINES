@@ -23,19 +23,17 @@
         <?php
         }
         ?>
-        <h2 class='mt-4'>Mis mascotas:</h2>
+        <h2 class='mt-4'>Guardianes:</h2>
         <ul class="list-group">
             <?php
-            //TODO change to a table with more info
-                foreach ($pets as $pet => $value) {
+                foreach ($guardians as $guardian => $value) {
                     echo '<li class="list-group-item d-flex justify-content-between align-items-center">
-                    ' . $value-> getName() .'
-                    <a class="badge badge-primary badge-pill text-white" href="' . FRONT_ROOT . 'Pet/ShowPetDetailsView/?petID=' . $value->getIdPet() . '">Ver Mascota</a>
+                    ' . $value-> getUsername() .'
+                    <a class="badge badge-primary badge-pill text-white" href="' . FRONT_ROOT . 'Owner/ShowGuardianDetailsView/?personId=' . $value->getId() . '">Ver Guardian</a>
                     </li>';
                 }
             ?>
         </ul>
-        <a type="button" class="btn btn-info mt-3 btn-lg btn-block" href= "<?php echo FRONT_ROOT ?>Pet/ShowRegisterView">Agregar mascota</a>
     </div>
 
 </body>

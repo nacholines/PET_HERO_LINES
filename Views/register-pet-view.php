@@ -1,3 +1,9 @@
+<?php
+  require_once(VIEWS_PATH."header.php");
+  Helpers\SessionValidator::ValidatePersonNav();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

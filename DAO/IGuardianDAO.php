@@ -5,8 +5,9 @@ namespace DAO;
 use Models\Guardian as Guardian;
 
 interface IGuardianDAO{
-    function Add(Guardian $guardian);
-    function GetAll();
+    function create($guardian, $idPerson);
+    function GetGuardianById($personId);
+    function GetData();
 }
 
 

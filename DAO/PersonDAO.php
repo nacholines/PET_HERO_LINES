@@ -42,6 +42,8 @@
     
         }
 
+        //TODO FillPersonData method, referenced in getbydni, getbyusername, getbyid, getdata and guardiancontroller->add
+
         public function GetByDni($dni){
             try{
                 $query = "SELECT * FROM people where dni = :dni";
@@ -75,6 +77,34 @@
             try{
                 $query = "SELECT * FROM people where username = :username";
                 $parameters['username'] = $username;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query, $parameters);
+                if(!count($resultSet) == 0){
+                    $value = $resultSet[0];
+                    $person = new Person();
+                    $person->setId($value["Id"]);
+                    $person->setFirstName($value["firstName"]);
+                    $person->setLastName($value["lastName"]);
+                    $person->setDni($value["dni"]);
+                    $person->setBirthDate($value["birthDate"]);
+                    $person->setGender($value["gender"]);
+                    $person->setPhone($value["phone"]);
+                    $person->setEmail($value["email"]);
+                    $person->setUsername($value["username"]);
+                    $person->setPassword($value["password"]);
+                    $person->setUserType($value["userType"]);
+                    return $person;
+                }
+            }catch(Exception $exc){
+                throw $exc;
+            }
+            return null;
+        }
+
+        public function GetById($personId){
+            try{
+                $query = "SELECT * FROM people where Id = :Id";
+                $parameters['Id'] = $personId;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query, $parameters);
                 if(!count($resultSet) == 0){
