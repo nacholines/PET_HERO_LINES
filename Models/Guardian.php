@@ -5,7 +5,7 @@ namespace Models;
 class Guardian extends Person{
     private $rate;
     private $acceptedSize;
-    private $avilabilityStartDate;
+    private $availabilityStartDate;
     private $availabilityEndDate;
 
     public function __constructor(){
@@ -26,10 +26,10 @@ class Guardian extends Person{
     }
 
     public function getAvailabilityStartDate(){
-        return $this->avilabilityStartDate;
+        return $this->availabilityStartDate;
     }
-    public function setAvailabilityStartDate($avilabilityStartDate){
-        $this->avilabilityStartDate = $avilabilityStartDate;
+    public function setAvailabilityStartDate($availabilityStartDate){
+        $this->availabilityStartDate = $availabilityStartDate;
     }
 
     public function getAvailabilityEndDate(){

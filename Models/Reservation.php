@@ -19,17 +19,17 @@
             $this->idReservation = $idReservation;
         }
 
-        private function getPet(){
+        public function getPet(){
             return $this->pet;
         }
-        private function setPet($pet){
+        public function setPet($pet){
             $this->pet = $pet;
         }
 
-        private function getGuardian(){
+        public function getGuardian(){
             return $this->guardian;
         }
-        private function setGuardian($guardian){
+        public function setGuardian($guardian){
             $this->guardian = $guardian;
         }
 

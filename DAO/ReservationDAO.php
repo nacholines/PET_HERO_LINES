@@ -2,27 +2,42 @@
 
 namespace DAO;
 
-///require_once("../Config/Autoload.php");
+use DAO\IReservationDAO as IReservationDAO;
+use Models\Reservation as Reservation;
 
-use DAO\IOwnerDAO as IOwnerDAO;
-use Models\Owner as Owner;
-
-class OwnerDAO implements IOwnerDAO{
-
-    private $ownerList = array();
-    private $fileName;
+class ReservationDAO implements IReservationDAO{
+    private $reservations = array();
+    private $connection;
+    private $tableName = "reservations";
 
     public function __construct()
     {
-        $this->fileName = dirname(__DIR__)."/Data/owners.json";
 
     }
 
-    public function Add(Owner $owner){
+    public function create($reservation){
+        $query = "INSERT INTO reservations (IdPet, IdGuardian, status, startDate, endDate, cost) VALUES (:IdPet, :IdGuardian, :status, :startDate, :endDate, :cost)";
+
+        $parameters["IdPet"] = $reservation->getPet();
+        $parameters["IdGuardian"] = $reservation->getGuardian();
+        $parameters["status"] = $reservation->getStatus();
+        $parameters["startDate"] = $reservation->getStartDate();
+        $parameters["endDate"] = $reservation->getEndDate();
+        $parameters["cost"] = $reservation->getCost();
+        
+        try{
+            $this->connection = Connection::GetInstance();
+            return $this->connection->Execute($query, $parameters);
+        }catch(Exception $exc){
+            throw $exc;
+        }
+    }
+
+    public function Add(Reservation $reservation){
 
         $this->RetrieveData();
 
-        array_push($this->ownerList, $owner);
+        array_push($this->reservationList, $reservation);
 
         $this->SaveData();
 
@@ -32,7 +47,7 @@ class OwnerDAO implements IOwnerDAO{
     {
         $this->RetrieveData();
 
-        return $this->ownerList;
+        return $this->reservationList;
     }
 }
 

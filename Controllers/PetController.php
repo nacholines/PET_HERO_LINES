@@ -45,14 +45,6 @@ class PetController{
 
     }
 
-    public function FillPetData($pet){
-        $sizeId = $this-> petDAO-> getSizeIdByPetId($pet-> getIdPet());
-        $size = $this->petDAO->GetSizeById($sizeId);
-        $pet->setSize($this->petDAO->GetSizeById($pet->getSize()));
-        $typeId = $this->petDAO->getTypeIdByPetId($pet->getIdPet());
-        $type = $this->petDAO->GetTypeById($typeId);
-        $pet->setPetType($this->petDAO->GetTypeById($pet->getPetType()));
-    }
 
     public function ShowRegisterView($message = "", $type = ""){
         $petTypes = $this-> petDAO-> GetTypesData();
@@ -64,15 +56,15 @@ class PetController{
     public function ShowPetsView($message = "", $type = ""){
         $pets = $this-> petDAO-> GetPetsByPersonId($_SESSION["loggedUser"]-> getId());
         foreach ($pets as $pet => $value) {
-            $this-> FillPetData($value);
+            $this->petDAO->FillPetData($value);
         }
         require_once(VIEWS_PATH."list-pets-view.php");
     }
 
     public function ShowPetDetailsView($petId){
         $pet = $this-> petDAO-> GetPetById($petId);
-        $this-> FillPetData($pet);
-        require_once(VIEWS_PATH."view-pet.php");
+        $this->petDAO->FillPetData($pet);
+        require_once(VIEWS_PATH."view-pet-details.php");
     }
 
 }

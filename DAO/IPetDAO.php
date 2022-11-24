@@ -6,5 +6,6 @@
 
     interface IPetDAO{
         function GetTypesData();
+        function GetSizeById($idPetSize);
     }
 ?>

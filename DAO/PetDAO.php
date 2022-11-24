@@ -109,7 +109,8 @@
                 $pet = $pet->setIdPet($value["IdPet"]);
                 $pet = $pet->setIdPerson($value["IdPerson"]);
                 $pet = $pet->setPetType($value["IdPetType"]);
-                $pet = $pet->setSize($value["IdPetSize"]);
+                $petSize = $this->GetSizeById($value["IdPetSize"]);
+                $pet = $pet->setSize($petSize);
                 $pet = $pet->setBreed($value["breed"]);
                 $pet = $pet->setName($value["petName"]);
                 $pet = $pet->setPhoto($value["image"]);
@@ -190,6 +191,16 @@
             }catch(Exception $exc){
                 throw $exc;
             }
+        }
+
+        
+        public function FillPetData($pet){
+            $sizeId = $this->getSizeIdByPetId($pet-> getIdPet());
+            $size = $this->GetSizeById($sizeId);
+            $pet->setSize($size);
+            $typeId = $this->getTypeIdByPetId($pet->getIdPet());
+            $type = $this->GetTypeById($typeId);
+            $pet->setPetType($type);
         }
     }
 ?>

@@ -14,15 +14,6 @@
 </head>
 <body>
     <div class='container'>
-        <?php
-        if ($message != ""){
-        ?>
-        <div class="alert alert-success mt-3" role="alert">
-            <?= $message; ?>
-        </div>
-        <?php
-        }
-        ?>
         <h2 class='mt-4'>Guardianes:</h2>
         <ul class="list-group">
             <?php
